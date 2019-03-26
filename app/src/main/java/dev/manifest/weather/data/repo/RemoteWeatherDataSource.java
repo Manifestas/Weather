@@ -18,31 +18,31 @@ public class RemoteWeatherDataSource implements WeatherDataSource {
 
     @Override
     public Single<List<City>> updateWeatherInfo() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Maybe<List<City>> getAddedCitiesWeather() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Single<City> saveOrUpdateCity(City city) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Single<City> addCity(String cityName) {
-        return null;
+        return weatherApi.getWeather(cityName);
     }
 
     @Override
     public Single<City> addCity(double lat, double lon) {
-        return null;
+        return weatherApi.getWeather(lat, lon);
     }
 
     @Override
     public Completable removeCityById(int id) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 }
