@@ -7,7 +7,7 @@ import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
 
-interface WeatherDataSource {
+public interface WeatherDataSource {
 
     Single<List<City>> updateWeatherInfo();
 
