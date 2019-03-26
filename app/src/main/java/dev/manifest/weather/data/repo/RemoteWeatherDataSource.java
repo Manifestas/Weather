@@ -8,11 +8,11 @@ import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
 
-public class WeatherRemoteDataSource implements WeatherDataSource {
+public class RemoteWeatherDataSource implements WeatherDataSource {
 
     private WeatherApi weatherApi;
 
-    public WeatherRemoteDataSource(WeatherApi weatherApi) {
+    public RemoteWeatherDataSource(WeatherApi weatherApi) {
         this.weatherApi = weatherApi;
     }
 
