@@ -9,6 +9,7 @@ import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class LocalWeatherDataSource implements WeatherDataSource {
 
@@ -21,31 +22,57 @@ public class LocalWeatherDataSource implements WeatherDataSource {
 
     @Override
     public Single<List<City>> updateWeatherInfo() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Maybe<List<City>> getAddedCitiesWeather() {
-        return null;
+        RealmResults<City> cities = realm.where(City.class).findAll();
+        return cities.isEmpty() ? Maybe.empty() : Maybe.just(realm.copyFromRealm(cities));
     }
 
     @Override
     public Single<City> saveOrUpdateCity(City city) {
-        return null;
+        realm.executeTransaction(x -> {
+            if (city.isCurrentLocationCity()) {
+                City currentCity = realm.where(City.class)
+                        .equalTo("currentLocationCity", true)
+                        .findFirst();
+                if (currentCity != null) {
+                    currentCity.deleteFromRealm();
+                }
+            } else {
+                City savedCity = realm.where(City.class)
+                        .equalTo("id", city.getId())
+                        .findFirst();
+                if (savedCity != null) {
+                    city.setCurrentLocationCity(savedCity.isCurrentLocationCity());
+                }
+            }
+            realm.copyToRealmOrUpdate(city);
+        });
+        return Single.just(city);
     }
 
     @Override
     public Single<City> addCity(String cityName) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Single<City> addCity(double lat, double lon) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Completable removeCityById(int id) {
-        return null;
+        return Completable.fromAction(() -> realm.executeTransaction(x -> {
+            City cityToRemove = realm.where(City.class)
+                    .equalTo("id", id)
+                    .findFirst();
+            if (cityToRemove != null) {
+                cityToRemove.deleteFromRealm();
+            }
+        }));
     }
 }
