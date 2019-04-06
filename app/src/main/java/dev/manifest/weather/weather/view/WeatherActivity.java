@@ -1,4 +1,4 @@
-package dev.manifest.weather;
+package dev.manifest.weather.weather.view;
 
 import android.os.Bundle;
 
@@ -7,12 +7,13 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import dev.manifest.weather.R;
 
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class WeatherActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
