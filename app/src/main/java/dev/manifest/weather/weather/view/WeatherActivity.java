@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -144,9 +145,25 @@ public class WeatherActivity extends AppCompatActivity implements WeatherContrac
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) {
+                    if (addCityButton.isShown()) {
+                        addCityButton.hide();
+                    }
+                } else if (dy < 0 && !addCityButton.isShown()) {
+                    addCityButton.show();
+                }
+            }
+        });
     }
 
     private void fetchData() {
         presenter.updateData(true);
+    }
+
+    public void addCityByName(String name) {
+        presenter.addCityByName(name);
     }
 }
