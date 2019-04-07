@@ -21,7 +21,7 @@ public class App extends Application {
         repositoryComponent.injectInto(this);
     }
 
-    RepositoryComponent getRepositoryComponent() {
+    public RepositoryComponent getRepositoryComponent() {
         return repositoryComponent;
     }
 }
