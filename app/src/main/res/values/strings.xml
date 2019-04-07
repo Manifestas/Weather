@@ -4,4 +4,6 @@
     <string name="network_error_text">Can\'t load data</string>
     <string name="retry">Retry</string>
     <string name="remove_current_city_error">You can\'t remove current city</string>
+    <string name="city_name">City name</string>
+    <string name="add_city">Add city</string>
 </resources>
