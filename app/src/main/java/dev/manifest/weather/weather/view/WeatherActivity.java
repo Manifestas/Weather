@@ -77,38 +77,47 @@ public class WeatherActivity extends AppCompatActivity implements WeatherContrac
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.unsubscribe();
+    }
+
+    @Override
     public void showProgress() {
 
     }
 
     @Override
     public void showData(List<City> cities) {
-
+        swipeRefreshLayout.setRefreshing(false);
+        adapter.setData(cities);
     }
 
     @Override
     public void showError() {
+        swipeRefreshLayout.setRefreshing(false);
 
     }
 
     @Override
     public void hideItemAtPosition(int position) {
-
+        adapter.notifyItemRemoved(position);
     }
 
     @Override
     public void showEmptyState() {
+        swipeRefreshLayout.setRefreshing(false);
 
     }
 
     @Override
     public void showNetworkErrorNotification() {
-
+        Snackbar.make(swipeRefreshLayout, R.string.network_error_text, Snackbar.LENGTH_LONG).show();
     }
 
     @Override
     public void showCurrentCityDeletionErrorNotification() {
-
+        Snackbar.make(swipeRefreshLayout, R.string.remove_current_city_error, Snackbar.LENGTH_LONG).show();
     }
 
     private void initViews() {
