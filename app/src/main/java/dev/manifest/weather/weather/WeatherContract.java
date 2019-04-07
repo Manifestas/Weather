@@ -6,7 +6,7 @@ import dev.manifest.weather.common.BasePresenter;
 import dev.manifest.weather.common.BaseView;
 import dev.manifest.weather.data.model.City;
 
-interface WeatherContract {
+public interface WeatherContract {
 
     interface View extends BaseView<Presenter> {
 
