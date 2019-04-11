@@ -131,13 +131,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherContrac
         setSupportActionBar(toolbar);
 
         addCityButton = findViewById(R.id.fab);
-        addCityButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        addCityButton.setOnClickListener(view -> clickOnAddCityButton());
     }
 
     private void initRecyclerView() {
@@ -157,6 +151,10 @@ public class WeatherActivity extends AppCompatActivity implements WeatherContrac
                 }
             }
         });
+    }
+
+    private void clickOnAddCityButton() {
+        WeatherAddCityDialog.newInstance().show(getSupportFragmentManager(), "WeatherAddCityDialog");
     }
 
     private void fetchData() {
